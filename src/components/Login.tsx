@@ -3,26 +3,14 @@ import { supabase } from '../lib/supabase'
 
 export function Login() {
   const [email, setEmail] = useState('')
-  const [sent, setSent] = useState(false)
+  const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: window.location.href },
-    })
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) setError(error.message)
-    else setSent(true)
-  }
-
-  if (sent) {
-    return (
-      <div className="login-screen">
-        <p>Check your email for a sign-in link.</p>
-      </div>
-    )
   }
 
   return (
@@ -36,7 +24,14 @@ export function Login() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <button type="submit">Send sign-in link</button>
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit">Sign in</button>
       </form>
       {error && <p className="error">{error}</p>}
     </div>
