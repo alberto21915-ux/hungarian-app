@@ -76,6 +76,36 @@ header h1 { font-size: 22px; margin: 0; }
 .flashcard-answer { font-size: 18px; color: #8a7a68; }
 .flashcard-hint { font-size: 13px; color: #b8ab9c; }
 
+/* One-way reveal: a real button, so it gives press feedback and works
+   reliably on touch screens. */
+.reveal-button {
+  margin-top: 12px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-family: inherit;
+  color: #6b5c4c;
+  background: #f2ece3;
+  border: 1px solid #e2d8ca;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.reveal-button:active { background: #e6ddd0; }
+
+.flashcard-examples {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #eee5d9;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.example { display: flex; flex-direction: column; gap: 2px; }
+.example-hu { font-size: 16px; color: #2a2320; }
+.example-en { font-size: 13px; color: #8a7a68; }
+
+.review-done { color: #8a7a68; }
+
 .rating-buttons { display: flex; gap: 8px; margin-top: 12px; }
 .rating-buttons button {
   flex: 1; padding: 14px 6px; border: none; border-radius: 12px; font-size: 14px;
@@ -94,3 +124,28 @@ header h1 { font-size: 22px; margin: 0; }
   width: 100%; padding: 12px; border-radius: 10px; border: none; background: #2a2320; color: #fff; font-size: 16px;
 }
 .error { color: #b0432c; }
+
+
+/* Lesson / review tabs — the flashcards live on their own screen so the
+   vocabulary list with the answers is never visible while reviewing. */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin: 4px 0 20px;
+}
+.tab {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #6b5c4c;
+  background: #f2ece3;
+  border: 1px solid #e2d8ca;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.tab-active {
+  background: #2a2320;
+  border-color: #2a2320;
+  color: #faf7f2;
+}

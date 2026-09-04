@@ -1,5 +1,6 @@
 import { supabase } from './supabase'
 import { lessons, type Lesson } from '../data/content'
+import { examples, type Example } from '../data/examples'
 import { nextState, dueDateFrom, type Rating } from './srs'
 
 // Make sure every vocab word in a lesson has a `cards` row, so progress can
@@ -21,6 +22,7 @@ export interface DueCard {
   id: string
   hu: string
   en: string
+  examples: Example[]
   progress: {
     ease: number
     interval_days: number
@@ -49,6 +51,7 @@ export async function fetchDueCards(limit = 20): Promise<DueCard[]> {
         id: c.id,
         hu: c.hu,
         en: c.en,
+        examples: examples[c.hu] ?? [],
         progress: p
           ? { ease: p.ease, interval_days: p.interval_days, repetitions: p.repetitions }
           : { ease: 2.5, interval_days: 0, repetitions: 0 },

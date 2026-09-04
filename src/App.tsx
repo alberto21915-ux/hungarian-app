@@ -14,10 +14,13 @@ import {
 } from './lib/queries'
 import './App.css'
 
+type View = 'lesson' | 'review'
+
 export default function App() {
   const [session, setSession] = useState<Session | null | undefined>(undefined)
   const [lessonId, setLessonId] = useState<string | null>(null)
   const [ready, setReady] = useState(false)
+  const [view, setView] = useState<View>('lesson')
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setSession(data.session))
@@ -58,15 +61,31 @@ export default function App() {
         <button className="signout" onClick={() => supabase.auth.signOut()}>Sign out</button>
       </header>
 
-      <section>
-        <h2 className="section-title">Today's lesson</h2>
-        <LessonView lesson={lesson} onDone={handleDone} hasNext={nextLessonId(lessonId) !== null} />
-      </section>
+      <nav className="tabs">
+        <button
+          className={view === 'lesson' ? 'tab tab-active' : 'tab'}
+          onClick={() => setView('lesson')}
+        >
+          Lesson
+        </button>
+        <button
+          className={view === 'review' ? 'tab tab-active' : 'tab'}
+          onClick={() => setView('review')}
+        >
+          Word review
+        </button>
+      </nav>
 
-      <section>
-        <h2 className="section-title">Word review</h2>
-        <FlashcardReview />
-      </section>
+      {view === 'lesson' ? (
+        <section>
+          <LessonView lesson={lesson} onDone={handleDone} hasNext={nextLessonId(lessonId) !== null} />
+        </section>
+      ) : (
+        <section>
+          <h2 className="section-title">Word review</h2>
+          <FlashcardReview />
+        </section>
+      )}
     </div>
   )
 }
