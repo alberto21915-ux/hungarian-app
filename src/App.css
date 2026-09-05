@@ -109,6 +109,12 @@ header h1 { font-size: 22px; margin: 0; }
 .rating-buttons { display: flex; gap: 8px; margin-top: 12px; }
 .rating-buttons button {
   flex: 1; padding: 14px 6px; border: none; border-radius: 12px; font-size: 14px;
+  /* Explicit colour and font, so these stay readable instead of inheriting
+     whatever the OS theme gives a native button. */
+  font-family: inherit;
+  font-weight: 500;
+  color: #2a2320;
+  cursor: pointer;
 }
 .rating-bad { background: #f3d9d4; }
 .rating-ok { background: #f4e6c9; }
